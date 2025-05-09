@@ -28,7 +28,6 @@ export default class DatabaseConfig {
           ServerName: data.server,
           UserName: data.user,
           Password: data.password,
-          DatabaseName: data.databaseName
         };
       }
     
