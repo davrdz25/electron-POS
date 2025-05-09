@@ -3,12 +3,7 @@ import sql, { config as SQLConfig, ConnectionPool, PreparedStatement, Request } 
 export default class Database {
     private static pool: ConnectionPool | null = null;
     private static connecting: boolean = false;
-    private static config: SQLConfig | null = null;
-
-    public static configure(config: SQLConfig) {
-        console.log("conf desde rect enclase ", config)
-        Database.config = (config);
-    }
+    public static config: SQLConfig | null = null;
 
     public static async Connect(): Promise<ConnectionPool> {
         try {
@@ -29,6 +24,7 @@ export default class Database {
     
             Database.pool = await sql.connect(Database.config);
             console.log('Conectado a la base de datos');
+            
             return Database.pool;
         } catch (err) {
             console.error('Error al conectar:', err);
