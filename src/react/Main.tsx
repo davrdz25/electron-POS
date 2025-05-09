@@ -21,8 +21,6 @@ const Main = () => {
         console.log("typeof createConfigFile: ", typeof window.electron?.createConfigFile);
       }, []);
 
-    const [inputValue, setInputValue] = useState<string>("");
-
     const conn = async () => {
         const r = await window.electron.connectDatabase()
     }
