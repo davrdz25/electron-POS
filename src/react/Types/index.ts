@@ -71,3 +71,27 @@ export type TSQLConfig = {
     Password: string;
     DatabaseName: string;
 }
+
+
+export type TModalMessage = {
+    type: 'info' | 'warning' | 'error' | 'success';
+    title: string; 
+    description: string; 
+    visible: boolean; 
+    onClose: () => void;
+    duration?: number;
+}
+
+
+export type TCustomInputProps = {
+  label: string
+  type: 'input' | 'label'
+  maxLength?: number
+  rows?: number
+  direction: 'row' | 'column'
+  value: string
+  onChange: (e: string) => void
+  placeholder?: string
+  password?: boolean
+  onPressEnter?: () => void
+}
