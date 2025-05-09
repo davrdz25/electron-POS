@@ -8,9 +8,13 @@ export default class App {
     constructor() {
         this.mainWindow = new MainWindow();
         this.init();
+
+        app.commandLine.appendSwitch('disable-gpu');
+        app.commandLine.appendSwitch('disable-software-rasterizer');
     }
 
     private init() {
+
 
         app.whenReady().then(() => {
             if (process.platform === 'win32') {
@@ -25,9 +29,7 @@ export default class App {
         });
 
         app.on('window-all-closed', () => {
-            if (process.platform !== 'darwin') {
-                app.quit();
-            }
+            app.quit();
         });
 
         app.on('ready', this.mainWindow.createWindow.bind(this.mainWindow));
