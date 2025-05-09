@@ -13,6 +13,10 @@ export default class MainWindow {
     public createWindow() {
         const databaseConfig = new DatabaseConfig()
 
+        require('dotenv').config();
+
+        console.log(process.env.NODE_ENV);
+
         ipcMain.handle('set-database-config', (_event, config) => {
             const sqlConfig: SQLConfig = {
                 server: config.ServerName,
@@ -78,15 +82,16 @@ export default class MainWindow {
 
         // Cargar el archivo HTML
         if (process.env.NODE_ENV === 'development') {
-            this.win.loadFile('../../public/index.html')
+            this.win.loadURL('http://localhost:3000');
         } else {
-            this.win.loadURL('http://localhost:3000'); // o usa un archivo HTML local si es necesario
-        }
+            console.log("__dirname",__dirname);
+            this.win.loadFile(path.join(__dirname, '../../renderer/index.html'));
+        }        
 
         // Abrir las herramientas de desarrollo en modo de depuración
-        //if (process.env.NODE_ENV === 'development') {
-        this.win.webContents.openDevTools();
-        //}
+        if (process.env.NODE_ENV === 'development') {
+            this.win.webContents.openDevTools();
+        }
 
         // Cerrar la ventana cuando se cierre
         this.win.on('closed', () => {
