@@ -3,7 +3,6 @@ import path from 'path';
 import Database from '../Utilities/Database';
 import DatabaseConfig from '../Utilities/DatabaseConfig'
 
-import { config as SQLConfig } from 'mssql';
 import Encryption from '../Utilities/Encryption';
 import { TSQLConfig } from '../Types/index';
 
@@ -16,19 +15,6 @@ export default class MainWindow {
         require('dotenv').config();
 
         console.log(process.env.NODE_ENV);
-
-        ipcMain.handle('set-database-config', (_event, config) => {
-            const sqlConfig: SQLConfig = {
-                server: config.ServerName,
-                user: config.Username,
-                password: config.Password,
-                options: {
-                    trustServerCertificate: true
-                }
-                
-            }
-            Database.configure(sqlConfig);
-        });
 
         ipcMain.handle('connect-database', async () => {
             try {
@@ -69,6 +55,32 @@ export default class MainWindow {
             }
         });
 
+
+        ipcMain.handle('test-connection', async(_event, config: TSQLConfig) => {
+            try {
+                Database.config = {
+                    server: config.ServerName,
+                    user: config.UserName,
+                    password: config.Password,
+                    options: {
+                        trustServerCertificate: true
+                    }
+                }
+
+                const pool = await Database.Connect()
+
+                if(pool)
+                    return true;
+
+                return false;
+            } catch (error) {
+             throw error   
+            } finally {
+                Database.Close();
+                Database.config = null;
+            }
+        })
+
         // Crear la ventana del navegador
         this.win = new BrowserWindow({
             width: 1920,
@@ -88,10 +100,10 @@ export default class MainWindow {
             this.win.loadFile(path.join(__dirname, '../../renderer/index.html'));
         }        
 
-        // Abrir las herramientas de desarrollo en modo de depuración
+        /* // Abrir las herramientas de desarrollo en modo de depuración
         if (process.env.NODE_ENV === 'development') {
             this.win.webContents.openDevTools();
-        }
+        } */
 
         // Cerrar la ventana cuando se cierre
         this.win.on('closed', () => {
