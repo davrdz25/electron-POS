@@ -1,0 +1,41 @@
+.badge {
+    display: flex;
+    border-radius: 3rem;
+    flex-direction: row;
+    padding: .5rem;
+    gap: .5rem;
+    padding-right: 1rem;
+    background-color: #FFFFFF;
+    align-items: center;
+}
+
+.pressable:hover {
+    scale: 1.02;
+}
+
+.pressable:active {
+    transform: scale(0.95);
+}
+
+.text {
+    color: black;
+    flex: 1;
+    display: flex;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.icon {
+    object-fit: cover;
+    width: 50%;
+    height: auto;
+ }
+
+.iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+ }

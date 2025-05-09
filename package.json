@@ -1,0 +1,67 @@
+{
+  "name": "pos-electron",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "mssql": "^11.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run react-start\" \"npm run electron\"",
+    "react-start": "BROWSER=none react-scripts start",
+    "electron": "tsc -p src/electron && electron build-electron/main.js",
+    "build": "npm run react-build && npm run electron-build",
+    "react-build": "react-scripts build",
+    "electron-build": "tsc -p src/electron && electron-builder",
+    "package": "electron-builder"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/electron": "^1.4.38",
+    "@types/mssql": "^9.1.7",
+    "@types/node": "^22.13.5",
+    "concurrently": "^9.1.2",
+    "electron": "^34.3.0",
+    "electron-builder": "^25.1.8",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
+    "typescript-eslint": "^8.26.1"
+  }
+}

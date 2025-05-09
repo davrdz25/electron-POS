@@ -1,0 +1,19 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+.button:hover {
+    scale: 1.02;
+}
+
+.icon {
+    object-fit: cover;
+    width: 50%;
+    height: auto;
+ }

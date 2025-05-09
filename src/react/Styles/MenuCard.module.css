@@ -1,0 +1,59 @@
+.card {
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    background-color: #FFFFFF;
+    padding: 1rem;
+    padding-right: 2.5rem;
+    aspect-ratio: 1/1;
+}
+
+.cardSelected {
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    background-color: #F0F9FF;
+    border: .1rem solid #2D71F8;
+    padding: 1rem;
+    padding-right: 2.5rem;
+    aspect-ratio: 1/1;
+}
+
+.cardSelected:hover {
+    scale: 1;
+}
+
+.cardIconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F7F7F7 ;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.cardIconContainerSelected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2D71F8 ;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.icon {
+    object-fit: cover;
+    width: 50%;
+    height: auto;
+ }
+
+ .category {
+    font-size: 1.2rem;
+    color: #000000;
+ }
+
+ .itemsCount {
+    color: #8A8A8A;
+ }

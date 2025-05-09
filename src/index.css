@@ -1,0 +1,27 @@
+html {
+  overflow: hidden;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  font-family: 'Urbanist', sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  border: none;
+}
+
+button:hover {
+  scale: 1.02;
+}
+
+button:active {
+  transform: scale(0.95);
+}

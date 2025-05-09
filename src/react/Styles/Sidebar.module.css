@@ -1,0 +1,218 @@
+.sideBar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: white;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 20;
+}
+
+.sideBarHidden {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: white;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 20;
+    transform: translateX(-100%);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    gap: .5rem;
+    padding: .2rem;
+}
+
+.userProfile {
+    display: flex;
+    flex-direction: row;
+    padding: .5rem;
+    background-color: #F7F7F7;
+    border-radius: 3rem;
+    gap: 1rem;
+}
+
+.icon {
+   object-fit: cover;
+   width: 100%;
+   height: auto;
+}
+
+.iconbtn {
+    object-fit: cover;
+    width: 50%;
+    height: auto;
+ }
+
+.userData {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: .2rem;
+}
+
+.userName {
+    font-size: 1.25rem;
+    color: #000000;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.userRole {
+    font-size: 1rem;
+    color: #8A8A8A;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.imgProfile {
+    display: flex;
+    object-fit: contain;
+    height: 3rem;
+    aspect-ratio: 1/1;
+}
+
+.iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FDF5F4;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+.iconContainer:hover {
+    scale: 1.05;
+}
+
+.closeButton {
+    display: flex;
+    object-fit: contain;
+    height: 50%;
+    margin: auto;
+}
+
+.listElement {
+    padding: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+.listIconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F7F7F7;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+.listIcon {
+    margin: .5rem;
+    object-fit: contain;
+}
+
+.listLabel {
+    color: #000000;
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.listElement:hover {
+    scale: 1.01;
+}
+
+.logOutContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F7F7F7;
+    margin: .2rem;
+    padding: 1rem;
+    padding-left: 1.2rem;
+    border-radius: 2rem;
+}
+
+
+.listElementSelected {
+    padding: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    background-color: #F0F9FF;
+    align-items: center;
+}
+
+.listIconContainerSelected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2D71F8;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+.listIconSelected {
+    margin: .5rem;
+    object-fit: contain;
+}
+
+.listLabelSelected {
+    color: #2D71F8;
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.logOutContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F7F7F7;
+    margin: .2rem;
+    padding: 1rem;
+    padding-left: 1.2rem;
+    border-radius: 2rem;
+}
+
+.logoutLabel {
+    font-size: 1.25rem;
+    color: #000000;
+}
+
+.logOutIcon {
+    display: flex;
+    background-color: #FC4A4A;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    padding: .2rem;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.logoutImg {
+    height: 75%;
+    object-fit: contain;
+    margin: auto;
+}

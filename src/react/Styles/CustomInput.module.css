@@ -1,0 +1,23 @@
+.inputContainer {
+    display: flex;
+}
+
+.label {
+    padding-left: .5rem;
+    font-size: 1.2rem;
+    align-content: center;
+}
+.input {
+    border-radius:  3rem;
+    font-size: 1.2rem;
+    background-color: #F7F7F7;
+    border-width: 0;
+    padding: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+}
+
+.input::placeholder {
+    color: #8A8A8A;
+}
