@@ -10,7 +10,7 @@ const Overlay = ({ visible }: TOverlay) => {
   useEffect(() => {
     if (visible) {
       setShouldRender(true); // Monta el overlay
-      setTimeout(() => setIsVisible(true), 20); // Da un pequeño delay para que opacity funcione
+      setTimeout(() => setIsVisible(true), 5); // Da un pequeño delay para que opacity funcione
     } else {
       setIsVisible(false);
       setTimeout(() => setShouldRender(false), 500); // Espera la animación antes de desmontar

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Overlay from './Components/Overlay';
 
 import AppStyle from './App.module.css'
@@ -27,6 +27,14 @@ const Main = () => {
     const [descriptionMessage, setDescriptionMessage] = useState<string>('');
     const [typeMessage, setTypeMessage] = useState<'info' | 'warning' | 'error' | 'success'>('info');
     const [validConfig, setvalidConfig] = useState<boolean>(false)
+    const [selected, setSelected] = useState<{ label: string; value: number } | undefined>(undefined)
+
+     const options = [
+    { label: 'Manzana', value: 1 },
+    { label: 'Banana', value: 2 },
+    { label: 'Naranja', value: 3 },
+    { label: 'Uva', value: 4 }
+  ]
 
     const [sqlConfig, setSqlConfig] = useState<TSQLConfig>({
         ServerName: '',
@@ -35,11 +43,15 @@ const Main = () => {
         DatabaseName: 'POS'
     });
 
+    useEffect(() => {
+        configFileExists()
+    }, [])
+
     const validateData = () => {
 
-        if(sqlConfig.UserName && sqlConfig.UserName && sqlConfig.Password)
+        if (sqlConfig.UserName && sqlConfig.UserName && sqlConfig.Password)
             setvalidConfig(true);
-        else{
+        else {
             setTypeMessage('warning')
             settitleMessage('Warning')
             setDescriptionMessage('All fields must be setted')
@@ -61,8 +73,11 @@ const Main = () => {
                     setModalVisible(false)
                     setSqlConfig(sqlConfigInitialState)
                     settitleMessage(messageInitialState.title)
-                    setDescriptionMessage(messageInitialState.description)    
+                    setDescriptionMessage(messageInitialState.description)
                 }, 2600);
+
+                window.electron.createConfigFile(sqlConfig)
+
             } else {
                 setTypeMessage('warning')
                 settitleMessage('Warning')
@@ -77,13 +92,30 @@ const Main = () => {
         }
     }
 
-    const ExistsDatabaseConfig = async () => {
-        const existsFile = await window.electron.existsConfigFile()
-        console.log('Existe', existsFile)
+    const configFileExists = async () => {
+        try {
+            const fileExists: boolean = await window.electron.existsConfigFile();
+
+            if (!fileExists)
+                setModalVisible(true)
+            else {
+                await window.electron.connectDatabase();
+
+                setTypeMessage('success');
+                settitleMessage('Success')
+                setDescriptionMessage("Connection successfull")
+                setmessageVisible(true)
+            }
+        } catch (error) {
+            setTypeMessage('error');
+            settitleMessage('System Exception')
+            setDescriptionMessage(String(error))
+            setmessageVisible(true)
+        }
     }
 
     return (
-        <div className={AppStyle.mainView}>
+        <div className={AppStyle.mainContainer}>
             <Overlay visible={modalVisible} />
             <Modal
                 title='Database configuration'
@@ -106,15 +138,12 @@ const Main = () => {
 
                         validateData()
 
-                        if(validConfig)
+                        if (validConfig)
                             TestSQLConnection()
 
                     }} fontColor='#FFFFFF' bgColor='#2D71F8' />
                 </div>
             </Modal>
-            <CustomButton title='Open config' onPress={() => { setModalVisible(true) }} fontColor='#FFFFFF' bgColor='#2D71F8' />
-            <CustomButton title='Test message' onPress={() => { setmessageVisible(!messageVisible) }} fontColor='#FFFFFF' bgColor='#2D71F8' />
-
             <ModalMessage
                 type={typeMessage}
                 description={descriptionMessage}
@@ -123,7 +152,6 @@ const Main = () => {
                 duration={2500}
                 onClose={() => setmessageVisible(false)}
             />
-
         </div>
     );
 }

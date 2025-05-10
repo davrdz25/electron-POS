@@ -2,6 +2,7 @@ import { TSQLConfig } from "../Types/index";
 import fs from "fs"
 
 import path from "path";
+import Encryption from "./Encryption";
 
 export default class DatabaseConfig {
 
@@ -18,16 +19,16 @@ export default class DatabaseConfig {
         fs.writeFileSync(this.configPath, jsonData, 'utf-8');
     }
 
-    
-      public Load(): TSQLConfig | null {
-        if (!fs.existsSync(this.configPath)) return null;
-    
+      public Load(): TSQLConfig {
         const data = JSON.parse(fs.readFileSync(this.configPath, 'utf-8'));
     
+        console.log('Load json config file', data)
+        console.log('Load json config file', Encryption.decrypt(data.ServerName), Encryption.decrypt(data.UserName), Encryption.decrypt(data.Password))
+
         return {
-          ServerName: data.server,
-          UserName: data.user,
-          Password: data.password,
+          ServerName: Encryption.decrypt(data.ServerName),
+          UserName: Encryption.decrypt(data.UserName),
+          Password: Encryption.decrypt(data.Password),
         };
       }
     

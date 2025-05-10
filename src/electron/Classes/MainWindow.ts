@@ -18,10 +18,23 @@ export default class MainWindow {
 
         ipcMain.handle('connect-database', async () => {
             try {
+                if (databaseConfig.Exists()){
+                    const sqlConfig  = databaseConfig.Load()
+
+                    Database.config = {
+                        server: sqlConfig.ServerName,
+                        user: sqlConfig.UserName,
+                        password: sqlConfig.Password,
+                        options: {
+                            trustServerCertificate: true
+                        }
+                    }
+                }
+
                 const pool = await Database.Connect();
                 return { success: true, message: 'Conexión exitosa' };
             } catch (err) {
-                return { success: false, message: (err as Error).message };
+                throw err
             }
         });
 
@@ -98,13 +111,8 @@ export default class MainWindow {
         } else {
             console.log("__dirname",__dirname);
             this.win.loadFile(path.join(__dirname, '../../renderer/index.html'));
-        }        
-
-        /* // Abrir las herramientas de desarrollo en modo de depuración
-        if (process.env.NODE_ENV === 'development') {
-            this.win.webContents.openDevTools();
-        } */
-
+        }
+                
         // Cerrar la ventana cuando se cierre
         this.win.on('closed', () => {
             this.win = null;

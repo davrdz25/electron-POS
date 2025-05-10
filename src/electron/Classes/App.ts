@@ -8,14 +8,9 @@ export default class App {
     constructor() {
         this.mainWindow = new MainWindow();
         this.init();
-
-        app.commandLine.appendSwitch('disable-gpu');
-        app.commandLine.appendSwitch('disable-software-rasterizer');
     }
 
     private init() {
-
-
         app.whenReady().then(() => {
             if (process.platform === 'win32') {
                 app.setAppUserModelId('my-electron-app');

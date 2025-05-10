@@ -95,3 +95,22 @@ export type TCustomInputProps = {
   password?: boolean
   onPressEnter?: () => void
 }
+
+export type TOrder = {
+  entry?: number;
+  date: string;
+  totalToPay: number;
+  totalOnAcccount: number,
+  paymentMethod: number;
+}
+
+export type TOrderDetail = {
+  entry?: number;
+  lineNum?: number;
+  item: number;
+  color: number;
+  tone: number;
+  material: number;
+  price: number;
+  total: number;
+}
