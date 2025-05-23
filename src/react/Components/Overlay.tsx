@@ -9,11 +9,11 @@ const Overlay = ({ visible }: TOverlay) => {
 
   useEffect(() => {
     if (visible) {
-      setShouldRender(true); // Monta el overlay
-      setTimeout(() => setIsVisible(true), 5); // Da un pequeño delay para que opacity funcione
+      setShouldRender(true);
+      setTimeout(() => setIsVisible(true), 15); 
     } else {
       setIsVisible(false);
-      setTimeout(() => setShouldRender(false), 500); // Espera la animación antes de desmontar
+      setTimeout(() => setShouldRender(false), 500);
     }
   }, [visible]);
 

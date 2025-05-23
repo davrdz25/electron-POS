@@ -27,14 +27,6 @@ const Main = () => {
     const [descriptionMessage, setDescriptionMessage] = useState<string>('');
     const [typeMessage, setTypeMessage] = useState<'info' | 'warning' | 'error' | 'success'>('info');
     const [validConfig, setvalidConfig] = useState<boolean>(false)
-    const [selected, setSelected] = useState<{ label: string; value: number } | undefined>(undefined)
-
-     const options = [
-    { label: 'Manzana', value: 1 },
-    { label: 'Banana', value: 2 },
-    { label: 'Naranja', value: 3 },
-    { label: 'Uva', value: 4 }
-  ]
 
     const [sqlConfig, setSqlConfig] = useState<TSQLConfig>({
         ServerName: '',
@@ -99,12 +91,21 @@ const Main = () => {
             if (!fileExists)
                 setModalVisible(true)
             else {
-                await window.electron.connectDatabase();
+                try {
+                    await window.electron.connectDatabase();
 
-                setTypeMessage('success');
-                settitleMessage('Success')
-                setDescriptionMessage("Connection successfull")
-                setmessageVisible(true)
+                    setTypeMessage('success');
+                    settitleMessage('Success')
+                    setDescriptionMessage("Connection successfull")
+                    setmessageVisible(true)
+
+                } catch (error) {
+                    setTypeMessage('warning')
+                    settitleMessage('Warning')
+                    setDescriptionMessage(String(error));
+                    setmessageVisible(true)
+
+                }
             }
         } catch (error) {
             setTypeMessage('error');

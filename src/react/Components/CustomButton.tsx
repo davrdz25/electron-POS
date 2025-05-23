@@ -1,14 +1,9 @@
 import Style from '../Styles/CustomButton.module.css'
+import { TButtonProps } from '../Types'
 
-type TButtonProps = {
-    title: string;
-    onPress: () => void;
-    fontColor: string;
-    bgColor: string;
-}
-const CustomButton = ({title, onPress, fontColor, bgColor}: TButtonProps) => {
+const CustomButton = ({title, onPress, fontColor, bgColor, disabled, fillWidth,borderRadious}: TButtonProps) => {
   return (
-    <button className={Style.button} style={{color: fontColor, backgroundColor: bgColor}} onClick={onPress}>
+    <button disabled={disabled} className={Style.button} style={{color:fontColor, backgroundColor: bgColor, width: fillWidth ? '100%' : '', borderRadius: borderRadious}} onClick={onPress}>
       <label className={Style.label}>{title}</label>
     </button>
   )

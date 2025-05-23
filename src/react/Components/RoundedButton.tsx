@@ -4,7 +4,7 @@ import { TRoundedButton } from '../Types'
 
 const RoundedButton = ({icon, bgColor, onPress}: TRoundedButton) => {
   return (
-    <button className={Style.button} style={{backgroundColor: bgColor, justifySelf: 'flex-end'}} onClick={onPress}>
+    <button className={Style.button} style={{backgroundColor: bgColor}} onClick={onPress}>
         <img src={icon} alt='button' className={Style.icon} />
     </button>
   )

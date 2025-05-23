@@ -4,7 +4,6 @@
     background: linear-gradient(225deg, rgba(123,151,178,1) 0%, rgba(242,242,242,1) 50%);  
     padding: 1rem;*/
 }
-/* 
 
 .mainContainer{ 
     height: 100vh;
@@ -12,26 +11,13 @@
     display: flex;
     flex-direction: row;
     background-color: #FFFFFF;
-    padding: 1rem 1rem;
-}
- */
-
-.mainContainer{ 
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: top;
-    background-color: #FFFFFF;
-    padding: 1rem 1rem;
 }
 
 .menuPanel {
     width: 70%;    
     flex-direction: column;
     display: flex;
-    gap: .5rem;
+    gap: 1rem;
     padding: .5rem;
     background: rgb(228,228,228);
     background: linear-gradient(270deg, rgba(228,228,228,1) 0%, rgba(249,249,249,1) 100%);
@@ -117,15 +103,6 @@
     border: 1px solid #FFFFFF;
     padding: 1.5rem;
     padding-right: 3rem;
-}
-
-.itemsMenuPanel {
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: auto;
-    gap: 1rem;
-    padding: 1rem;
-    overflow-y: auto;
 }
 
 .btnMenuPanel {
@@ -280,22 +257,24 @@
 }
 
 .orderDetailsContainer {
-    height: 100%;
     flex-direction: column;
     background-color: #FFFFFF;
+    overflow: scroll;
 }
 
 .orderDetails {
     display: flex;
-    height: 50%;
+    justify-content: space-between;
+    overflow-y: scroll;
 }
 
 .noItemsSelected {
+    display: flex;
     width: 100%;
     color: #8A8A8A;
     font-size: 1rem;
+    justify-content: center;
     text-align: center;
-    margin: auto;
     border-bottom: .15rem dashed #8A8A8A;
 }
 
@@ -341,7 +320,7 @@
 }
 
 .total {
-    font-size: 1rem;
+    font-size: 2rem;
     color: #000000;
 }
 

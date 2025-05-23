@@ -6,3 +6,4 @@ node_modules
 /build-electron
 /build
 /dist
+/Config

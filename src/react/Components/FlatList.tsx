@@ -1,4 +1,4 @@
-import { CSSProperties, useCallback } from "react";
+import { CSSProperties, cloneElement, isValidElement } from "react";
 import { TFlatListProps } from "../Types"; 
 
 const FlatList = <T,>({
@@ -10,13 +10,6 @@ const FlatList = <T,>({
     showsHorizontalScrollIndicator,
     showsVerticalScrollIndicator,
 }: TFlatListProps<T>) => {
-    const renderListItem = useCallback(
-        (item: T, index: number) => (
-            <div key={keyExtractor(item, index)}>{renderItem({ item, index })}</div>
-        ),
-        [renderItem, keyExtractor]
-    );
-
     const style: CSSProperties = {
         display: "flex",
         flexDirection: horizontal ? "row" : "column",
@@ -25,13 +18,21 @@ const FlatList = <T,>({
         overflowY: showsVerticalScrollIndicator ? "scroll" : "hidden",
         paddingLeft: ".2rem",
         paddingRight: ".2rem",
-    }
-    
+    };
+
     return (
         <div style={style}>
-            {data.map(renderListItem)}
+            {data.map((item, index) => {
+                const element = renderItem({ item, index });
+                if (isValidElement(element)) {
+                    return cloneElement(element, {
+                        key: keyExtractor(item, index),
+                    });
+                }
+                return element;
+            })}
         </div>
     );
 };
 
-export default FlatList
+export default FlatList;

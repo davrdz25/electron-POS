@@ -1,34 +1,18 @@
 .searchBarMenuPanel {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-direction: row;
-    padding: 0rem .5rem;
+    padding: 0.5rem 0.5rem;
     border-radius: 3rem;
     background-color: #FFFFFF;
-}
-
-.buttonSearch {
-    height: 75%;
-    margin: auto;
-    background: none;
-    border-radius: 50%;
-    aspect-ratio: 1/1;
-    background-color: #F7F7F7;
+    gap: 0.5rem;
+    overflow: hidden;
 }
 
 .searchInput {
-    display: flex;
     flex: 1;
     font-size: 1rem;
-    padding: 0 1rem;
+    padding: 1rem 1rem;
     border: none;
     background: none;
-}
-
-.searchIcon {
-    justify-self: flex-end;
-    object-fit: cover;
-    width: 75%;
-    height: auto;
+    line-height: 1;
 }

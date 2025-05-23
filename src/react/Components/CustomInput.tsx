@@ -10,8 +10,9 @@ const CustomInput = ({ label, type, maxLength, value, rows, direction, onChange,
   }
   return (
     <div className={Style.inputContainer} style={{ flexDirection: direction, gap: direction === 'row' ? '1rem' : '.5rem' }}>
-      <label htmlFor='customInput' style={{ flex: direction === 'row' ? 1 : undefined }} className={Style.label}>{label}</label>
       {type === 'input' ?
+      <>
+      <label htmlFor='customInput' style={{ flex: direction === 'row' ? 1 : undefined }} className={Style.label}>{label}</label>
         <input type={password ? 'password' : undefined} style={{ flex: direction === 'row' ? 1 : undefined }} className={Style.input} id='customInput' maxLength={maxLength} value={value} placeholder={placeholder}
           onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
             handlePressEnter(event)
@@ -22,8 +23,10 @@ const CustomInput = ({ label, type, maxLength, value, rows, direction, onChange,
             onChange(event.target.value)
             value = event.target.value
           }} />
+          </>
         :
-        <textarea className={Style.input} maxLength={maxLength} rows={rows} value={value} placeholder={placeholder} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        <textarea className={Style.textArea} 
+        maxLength={maxLength} rows={rows} value={value} placeholder={placeholder} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
           onChange(event.target.value)
           value = event.target.value
         }} />}

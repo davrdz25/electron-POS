@@ -1,13 +1,13 @@
 .alertMessage {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 1rem;
+  right: 1rem;
   padding: 1rem 1.5rem;
-  border-radius: 8px;
+  border-radius: .5rem;
   color: white;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,0.15);
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
@@ -32,13 +32,16 @@
 
 .closeButton {
   background: none;
+  margin-left: 1rem;
+  align-items: center;
   border: none;
   color: white;
   font-size: 1.5rem;
-  cursor: pointer;
+}
+.closeButton:hover {
+  scale:1.2;
 }
 
-/* Color variants */
 .error {
   background-color: #FC4A4A;
   color: #FFFFFF;

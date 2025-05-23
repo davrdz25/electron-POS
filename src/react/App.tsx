@@ -1,5 +1,4 @@
 import AppStyle from './App.module.css'
-import BellIcon from '../Assets/Images/BellIcon.svg'
 import SandwichIcon from '../Assets/Images/SandwichIcon.svg'
 import CalendarIcon from '../Assets/Images/CalendarIcon.svg'
 import ClockIcon from '../Assets/Images/ClockIcon.svg'
@@ -14,8 +13,7 @@ import RoundedButton from './Components/RoundedButton'
 import Overlay from './Components/Overlay'
 import Badge from './Components/Badge'
 import BadgeStyle from './Styles/Badge.module.css'
-import BreefCrowich from '../Assets/Images/BeefCrowich.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Searchbar from './Components/Searchbar'
 import MenuCard from './Components/MenuCard'
 import { ItemCard } from './Components/ItemCard'
@@ -23,79 +21,131 @@ import FlatList from './Components/FlatList'
 import FlatGrid from './Components/FlatGrid'
 import UseTime from './Hooks/UseTime'
 import UseDate from './Hooks/UseDate'
+import { menuCards, items } from './Mocks'
+import Modal from './Components/Modal'
+import OrderItem from './Components/OrderItem'
+import CustomButton from './Components/CustomButton'
+import { TItem, TOrder, TOrderLine } from './Types'
+import OrderLine from './Components/OrderLine'
 
 const App = () => {
+
     const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
     const [overlayVisible, setOverlayVisible] = useState<boolean>(false);
 
-    const menuCards = [
-        {
-            Entry: 1,
-            Name: "All items",
-            itemsQuantity: 100,
-            Icon: BellIcon,
-        },
-    ]
+    const [order, setOrder] = useState<TOrder>({
+        Number: -1,
+        CustomerCode: '',
+        CustomerName: '',
+        Type: 'D',
+        Date: '',
+        Time: '',
+        Total: 0.0,
+    });
 
-    const itemCards = [
-        {
-            Entry: 1,
-            Name: 'Breef crowich',
-            badgeColor: '#FFF5E4',
-            badgeFontColor: "#D69172",
-            category: 'Sandwich',
-            price: '$5.50',
-            image: BreefCrowich
-        },
-        {
-            Entry: 1,
-            Name: 'Breef crowich',
-            badgeColor: '#FFF5E4',
-            badgeFontColor: "#D69172",
-            category: 'Sandwich',
-            price: '$5.50',
-            image: BreefCrowich
-        },
-        {
-            Entry: 1,
-            Name: 'Breef crowich',
-            badgeColor: '#FFF5E4',
-            badgeFontColor: "#D69172",
-            category: 'Sandwich',
-            price: '$5.50',
-            image: BreefCrowich
-        },
-        {
-            Entry: 1,
-            Name: 'Breef crowich',
-            badgeColor: '#FFF5E4',
-            badgeFontColor: "#D69172",
-            category: 'Sandwich',
-            price: '$5.50',
-            image: BreefCrowich
-        },
-        {
-            Entry: 1,
-            Name: 'Breef crowich',
-            badgeColor: '#FFF5E4',
-            badgeFontColor: "#D69172",
-            category: 'Sandwich',
-            price: '$5.50',
-            image: BreefCrowich
-        },
-        {
-            Entry: 1,
-            Name: 'Breef crowich',
-            badgeColor: '#FFF5E4',
-            badgeFontColor: "#D69172",
-            category: 'Sandwich',
-            price: '$5.50',
-            image: BreefCrowich
+    const [orderLine, setOrderLine] = useState<TOrderLine>({
+        LineNum: -1,
+        ItemEnty: -1,
+        ItemCode: '',
+        ItenName: '',
+        Image: '',
+        Price: 0.00,
+        Comments: '',
+        Quantity: 0,
+        LineTotal: 0.0
+    });
+
+    const [orderLines, setOrderLines] = useState<TOrderLine[]>([]);
+
+    const [itemSelectec, setItemSelected] = useState<TItem>({
+        Entry: -1,
+        Code: '',
+        Name: '',
+        Description: '',
+        Price: 0.00,
+        Image: '',
+        Category: {
+            Entry: -1,
+            Name: '',
+            BackgroundColor: '',
+            FontColor: ''
         }
-    ]
+    });
+
+    const [modalVisible, setmodalVisible] = useState<boolean>(false)
+
+    const addOrderLine = (newLine: TOrderLine) => {
+        const lineNum = orderLines.length + 1;
+
+        console.log("orderLine no updated", orderLine)
+        console.log("orderLine lineNu, lineTotal ", lineNum)
+
+        setOrderLine({
+            ...orderLine,
+            LineNum: lineNum,
+        })
+
+        setOrderLines((prevLines) => [...prevLines, newLine]);
+        setmodalVisible(false);
+    }
+
+    const handleTotal = () => {
+        const total = orderLines.reduce((sum, line) => sum + line.LineTotal, 0);
+
+        setOrder(prev => ({
+            ...prev,
+            Total: total
+        }));
+
+        console.log("order state", { ...order, Total: total });
+    };
+
+    const deleteItem = (lineNum: number) => {
+        setOrderLines(prev => prev.filter(orderLine => orderLine.LineNum !== lineNum));
+    };
+
+
+   const updateLine = (lineNum: number, newQuantity: number) => {
+    console.log("orderLines before update: ", orderLines, lineNum, newQuantity);
+
+    setOrderLines(prevLines =>
+        prevLines
+            .map(line =>
+                line.LineNum === lineNum
+                    ? {
+                        ...line,
+                        Quantity: newQuantity,
+                        LineTotal: newQuantity * line.Price,
+                    }
+                    : line
+            )
+            .filter(line => line.Quantity > 0)
+    );
+
+    setTimeout(() => {
+        console.log("orderLines after update: ", orderLines);
+    }, 100);
+};
+
 
     const time = UseTime();
     const date = UseDate();
+
+    useEffect(() => {
+        setOrder({
+            ...order,
+            Number: 1,
+            CustomerCode: 'MOST',
+            CustomerName: 'Cliente mostrador',
+            Date: date,
+            Time: time,
+            Total: 0,
+        })
+    }, [])
+
+    useEffect(() => {
+        handleTotal()
+    }, [orderLines]);
 
     return (
         <div className={AppStyle.mainView}>
@@ -103,11 +153,22 @@ const App = () => {
                 setSidebarVisible(false)
                 setOverlayVisible(false)
             }} />
-            <Overlay visible={overlayVisible} />
+            <Modal title='Order detail' onClose={() => setmodalVisible(false)} isVisible={modalVisible}>
+                <OrderItem item={itemSelectec} onChangeQuantity={(qty) => {
+                    setOrderLine({
+                        ...orderLine,
+                        Quantity: qty,
+                        Price: itemSelectec.Price,
+                        LineTotal: qty * itemSelectec.Price
+                    })
+                }} />
+                <CustomButton fillWidth bgColor='#2D71F8' fontColor='#FFFFFF' title='Add to order' onPress={() => { addOrderLine(orderLine) }} />
+            </Modal>
+            <Overlay visible={overlayVisible || modalVisible} />
             <div className={AppStyle.mainContainer}>
                 <div className={AppStyle.menuPanel}>
                     <div className={AppStyle.headerMenuPanel}>
-                        <RoundedButton icon={SandwichIcon} onPress={() => {
+                        <RoundedButton icon={SandwichIcon} bgColor='#FFFFFF' onPress={() => {
                             setOverlayVisible(true);
                             setSidebarVisible(true);
                         }} />
@@ -128,22 +189,37 @@ const App = () => {
                             title={item.Name}
                             key={item.Entry}
                             itemsQty={item.itemsQuantity.toString()}
-                            icon={item.Icon}
+                            icon={item.icon}
                             onPress={() => { console.log('Press') }} />}
                     />
                     <Searchbar />
                     <FlatGrid
-                        data={itemCards}
+                        data={items}
                         keyExtractor={(item) => item.Entry.toString()}
                         renderItem={({ item }) =>
                             <ItemCard
                                 name={item.Name}
-                                onPress={() => console.log('Pres')}
-                                badgeColor={item.badgeColor}
-                                badgeFontColor={item.badgeFontColor}
-                                category={item.category}
-                                price={item.price}
-                                image={item.image}
+                                onPress={() => {
+                                    console.log(item)
+                                    setItemSelected(item)
+                                    setmodalVisible(true);
+                                    setOrderLine({
+                                        ...orderLine,
+                                        ItemEnty: item.Entry,
+                                        ItemCode: item.Code,
+                                        ItenName: item.Name,
+                                        Image: item.Image,
+                                        Price: item.Price,
+                                        LineTotal: item.Price,
+                                        Quantity: 1,
+                                    })
+                                    console.log("onAdd item ", orderLine)
+                                }}
+                                badgeColor={item.Category.BackgroundColor}
+                                badgeFontColor={item.Category.FontColor}
+                                category={item.Category.Name}
+                                price={'$' + item.Price.toFixed(2)}
+                                image={item.Image}
                                 key={item.Entry}
                             />
                         }
@@ -174,22 +250,39 @@ const App = () => {
                         </div>
                     </div>
                     <div className={AppStyle.orderDetailsContainer}>
-                        <div className={AppStyle.orderDetails}>
-                            <span className={AppStyle.noItemsSelected}>No items selected</span>
-                        </div>
+                        {
+                            orderLines?.length === 0 ?
+                                <span className={AppStyle.noItemsSelected}>No items</span>
+                                :
+                                <FlatList
+                                    horizontal={false}
+                                    remSeparation={.5}
+                                    data={orderLines}
+                                    keyExtractor={(item) => item.LineNum.toString()}
+                                    renderItem={({ item }) =>
+                                        <OrderLine
+                                            orderLine={item}
+                                            onChangeQuantity={(e) => {
+                                                console.log("Quantity changed", e)
+                                                updateLine(item.LineNum, e)
+                                            }}
+                                        />
+                                    }
+                                />
+                        }
                     </div>
                     <div className={AppStyle.subTotalContainer}>
-                        <div className={AppStyle.subTotal}>
+                        {/* <div className={AppStyle.subTotal}>
                             <span className={AppStyle.subTotal}>Subtotal</span>
                             <span className={AppStyle.subTotal}>$00.00</span>
                         </div>
                         <div className={AppStyle.subTotalBordered}>
                             <span className={AppStyle.tax}>Tax 10%</span>
                             <span className={AppStyle.tax}>$00.00</span>
-                        </div>
+                        </div> */}
                         <div className={AppStyle.subTotal}>
                             <span className={AppStyle.total}>TOTAL</span>
-                            <span className={AppStyle.total}>$00.00</span>
+                            <span className={AppStyle.total}>{'$ ' + order.Total}</span>
                         </div>
                     </div>
                     <div className={AppStyle.promoPayment}>
@@ -219,4 +312,3 @@ const App = () => {
 }
 
 export default App;
-

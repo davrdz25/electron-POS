@@ -1,11 +1,12 @@
 .card {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     gap: 1rem;
     padding: .75rem;
     background-color: #FFFFFF;
     border-radius: 1.2rem;
+    width: 100%;
 }
 
 .itemName {
@@ -19,18 +20,21 @@
     align-items: center;
     background-color: #F7F7F7;
     border-radius: 1.2rem;
+    flex: 2
 }
 
 .image {
     width: 75%;
     height: auto;
     object-fit: cover;
+    margin: 1rem 1rem;
 }
 
 .cardLabel {
     font-size: 1rem;
     color: #000000;
     text-align: left;
+    flex: 1
 }
 
 .typePriceContainer {

@@ -3,7 +3,7 @@ import { TItemCardProps } from '../Types'
 
 export const ItemCard = ({ name, badgeColor, badgeFontColor, category, price, image, onPress }: TItemCardProps) => {
     return (
-        <button className={Style.card}>
+        <button className={Style.card} onClick={onPress} >
             <div className={Style.cardImage}>
                 <img src={image} className={Style.image} alt='Breef crowich' />
             </div>

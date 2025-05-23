@@ -2,15 +2,9 @@ import Style from '../Styles/MenuCard.module.css'
 import BellIcon from '../../Assets/Images/BellIcon.svg'
 import BellIconSelected from '../../Assets/Images/BellIconSelected.svg'
 
-import { useEffect } from 'react';
-import { TMenuCard } from '../Types';
+import { TMenuCardProps } from '../Types';
 
-const MenuCard = ({onPress, title, itemsQty, selected = false}: TMenuCard) => {
-
-useEffect(() => {
-    console.log(BellIcon)
-  }, [])
-  
+const MenuCard = ({onPress, title, itemsQty, selected = false}: TMenuCardProps) => {
     return (
         <button className={selected ? Style.cardSelected : Style.card} onClick={onPress}>
             <div className={selected ? Style.cardIconContainerSelected : Style.cardIconContainer}>
